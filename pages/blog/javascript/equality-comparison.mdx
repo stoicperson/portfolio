@@ -10,30 +10,66 @@ title: "동등 비교"
 
 ## ==(느슷한 비교, loose equality)
 
-== 는 느슷한 비교(loose equality),
+==는 두 값이 같은지 확인하지만 데이터 유형을 고려하지 않습니다. 따라서 문자열과 숫자를 비교하는 경우, 이 연산자는 문자열을 숫자로 변환한 다음 비교합니다.
+
+예를 들어 "1" == 1 표현식은 Number("1") === 1 이나 String(1) === "1"로 생각될 수 있습니다.
 
 ## ===(엄격한 비교, strict equality)
 
+===은 두 값이 동일한 유형인지, 또 두 값이 같은지를 확인합니다. 따라서 문자열과 숫자를 비교하는 경우, 이 연산자는 두 값이 다른 유형이르모 false를 반환합니다.
+===은 사용자에게 직관적으로 다가오기 때문에 대부분의 경우에서 사용됩니다.
+
 ## == vs ===
 
-## 자바스크립트는 왜 이렇게 했을까?
+===은 == 보다 더욱 엄격하는 점을 유념하셔합니다. 따라서 ===을 사용할 때는 비교되는 두 값의 유형과 값이 동일한지 확인해야 합니다. 반면에 ==을 사용할 때는 자바스크립트가 비교하지 전에 두 값을 동일한 유형으로 변환합니다.
 
-beacuse 자바스크립트는 처음에 Web을 저작하기 위해 만들어졌기 때문에
+이는 객체와 같은 복잡한 데이터 유형을 비교할 때 예상치 못한 결과를 초래할 수 있습니다.
 
-Web을 보면 모든 것이 그것이다 예를 들어
+### 요약 테이블
 
-```html
-<input type="number" />
-```
+|            x             |            y             |  ==   |  ===  |
+| :----------------------: | :----------------------: | :---: | :---: |
+|        undefined         |        undefined         | true  | true  |
+|           true           |           true           | true  | true  |
+|          false           |          false           | true  | true  |
+|          'foo'           |          'foo'           | true  | true  |
+|            0             |            0             | true  | true  |
+|            +0            |            -0            | true  | true  |
+|            +0            |            0             | true  | true  |
+|            -0            |            0             | true  | true  |
+|            0             |          false           | true  | false |
+|            ""            |          false           | true  | false |
+|            ""            |            0             | true  | false |
+|           '0'            |            0             | true  | false |
+|           '17'           |            17            | true  | false |
+|          [1, 2]          |          '1, 2'          | true  | false |
+|    new String('foo')     |          'foo'           | true  | false |
+|           null           |        undefined         | true  | false |
+|           null           |          false           | false | false |
+|        undefined         |          false           | false | false |
+| &#123; foo: 'bar' &#125; | &#123; foo: 'bar' &#125; | false | false |
+|    new String('foo')     |    new String('foo')     | false | false |
+|            0             |           null           | false | false |
+|            0             |           NaN            | false | false |
+|          'foo'           |           NaN            | false | false |
+|           NaN            |           NaN            | false | false |
 
-이렇게 넘버만 지정해줘도 값은 문자열로 받는다.
+## ==는 언제 사용되나?
 
-아래의 코드펜에서 직접 실행해보자.
+여기까지 오셨으면 모든 면에서 ===가 ==보다 나은거 같은데 ==은 언제 사용될까라는 궁금증이 드실겁니다.
 
-코드펜 ~~~
+상황에 따라서는 ==가 ===보다 더욱 유용하게 사용될 수 있습니다. 몇 가지 사례를 소개하겠습니다.
+
+- **사용자로부터 숫자를 가져올 때**
+
+- **선언된 변수의 존재를 확인할 때**
+
+- **0을 없는 값으로 취급하고 싶을 때**
 
 ## 결론
 
 ## 참조
 
 [MDN - Equality comparisons and sameness](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
+
+[StackExchange - Does using == in JavaScript ever make sense?](https://softwareengineering.stackexchange.com/questions/268124/does-using-in-javascript-ever-make-sense)
