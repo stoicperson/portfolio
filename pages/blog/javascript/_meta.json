@@ -4,5 +4,8 @@
   },
   "loop": {
     "title": "반복문"
+  },
+  "variables": {
+    "title": "변수 선언"
   }
 }
