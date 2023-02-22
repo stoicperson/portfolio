@@ -1,11 +1,14 @@
 {
+  "variables": {
+    "title": "변수"
+  },
   "equality-comparison": {
     "title": "동등 비교"
   },
   "loop": {
     "title": "반복문"
   },
-  "variables": {
-    "title": "변수 선언"
+  "lexical-environment": {
+    "title": "렉시컬 환경"
   }
 }
