@@ -26,6 +26,9 @@ const config: DocsThemeConfig = {
         titleTemplate: "%s - Park min",
       };
     }
+    return {
+      titleTemplate: "%s",
+    };
   },
   head: function useHead() {
     const { title } = useConfig();
@@ -57,7 +60,7 @@ const config: DocsThemeConfig = {
     text: "",
   },
   feedback: {
-    content: "Question? Give us feedback",
+    content: "페이지에 오류가 있나요? 피드백 해주세요!",
     labels: "feedback",
   },
   sidebar: {
