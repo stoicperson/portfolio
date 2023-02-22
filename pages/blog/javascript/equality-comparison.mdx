@@ -1,0 +1,105 @@
+---
+title: "동등 비교"
+---
+
+import { useState } from "react";
+
+# 동등 비교
+
+동등 비교란 두 값이 같은지 비교하는 것입니다. 자바스크립트에는 동등 비교를 할 수 있는 두 가지 연산자가 있는데 바로 `==`(double equals)와 `===`(triple equals)입니다.
+
+이 둘은 유사하게 보이지만 상황에 따라 다른 결과를 가져오는 고유한 기능을 갖고 있습니다. 이 글은 이 두 연산자의 차이점에 대해 설명합니다.
+
+## `==`(느슷한 비교, loose equality)
+
+`==`는 두 값이 같은지 확인하지만 데이터 유형을 고려하지 않습니다. 따라서 문자열과 숫자를 비교하는 경우, 이 연산자는 문자열을 숫자로 변환한 다음 비교합니다.
+
+예를 들어 "1" == 1 표현식은 Number("1") `===` 1 이나 String(1) `===` "1"로 변환되어 true를 반환합니다.
+
+## `===`(엄격한 비교, strict equality)
+
+`===`은 두 값이 동일한 유형인지, 또 두 값이 같은지를 확인합니다. 따라서 문자열과 숫자를 비교하는 경우, 이 연산자는 두 값이 다른 유형이므로 false를 반환합니다. `===`은 사용자에게 직관적으로 다가오기 때문에 대부분의 경우에서 사용됩니다.
+
+## `==` vs `===`
+
+`===`은 `==` 보다 더욱 엄격하는 점을 유념하셔합니다. 따라서 `===`을 사용할 때는 비교되는 두 값의 유형과 값이 동일한지 확인해야 합니다. 반면에 `==`을 사용할 때는 자바스크립트가 비교하기 전에 두 값을 동일한 유형으로 변환합니다.
+
+이는 객체와 같은 복잡한 데이터 유형을 비교할 때 예상치 못한 결과를 초래할 수 있습니다.
+
+### 요약표
+
+|            x             |            y             | `==`  | `===` |
+| :----------------------: | :----------------------: | :---: | :---: |
+|        undefined         |        undefined         | true  | true  |
+|           true           |           true           | true  | true  |
+|          false           |          false           | true  | true  |
+|          'foo'           |          'foo'           | true  | true  |
+|            0             |            0             | true  | true  |
+|            +0            |            -0            | true  | true  |
+|            +0            |            0             | true  | true  |
+|            -0            |            0             | true  | true  |
+|            0             |          false           | true  | false |
+|            ""            |          false           | true  | false |
+|            ""            |            0             | true  | false |
+|           '0'            |            0             | true  | false |
+|           '17'           |            17            | true  | false |
+|          [1, 2]          |          '1, 2'          | true  | false |
+|    new String('foo')     |          'foo'           | true  | false |
+|           null           |        undefined         | true  | false |
+|           null           |          false           | false | false |
+|        undefined         |          false           | false | false |
+| &#123; foo: 'bar' &#125; | &#123; foo: 'bar' &#125; | false | false |
+|    new String('foo')     |    new String('foo')     | false | false |
+|            0             |           null           | false | false |
+|            0             |           NaN            | false | false |
+|          'foo'           |           NaN            | false | false |
+|           NaN            |           NaN            | false | false |
+
+## `==`는 언제 사용되나?
+
+여기까지 오셨으면 `===`가 `==`보다 나은거 같은데 `==`은 언제 사용될까 하는 궁금증이 드실 겁니다.\
+상황에 따라서는 `==`가 `===`보다 유용하게 사용될 수 있습니다. 몇 가지 사례를 소개하겠습니다.
+
+export function Example() {
+  const [state, setState] = useState();
+  return (
+    <div className="pb-4">
+      <input
+        className="border border-gray-300 bg-slate-50 py-2 pl-4 rounded-md mr-4"
+        type="number"
+        placeholder="숫자만"
+        onChange={(e) => setState(e.target.value)}
+      ></input>
+      <button
+        className="font-bold py-2 px-4 rounded-md bg-blue-500 text-white hover:bg-blue-700 active:bg-blue-300"
+        onClick={() => window.alert(typeof state)}
+      >
+        Type은?
+      </button>
+    </div>
+  );
+}
+
+- **사용자로부터 숫자를 가져올 때**\
+   아래와 같이 `input`에 `type="number"`로 지정해도 `input`의 값은 문자열입니다. `input`에서 숫자를 받아오고 비교할 때 `==`를 사용하면 더욱 편리합니다.
+
+  ```html filename="html"
+  <input id="input" type="number" placeholder="숫자만" />
+  <buttn onclick="window.alert(typeof input.value)">Type은?</button>
+  ```
+
+  <Example />
+
+- **사용자로부터 의미있는 값을 받았는지 확인하고 싶을 때**\
+  사용자가 아무것도 입력하지 않았거나 공백만 입력한 경우를 확인하고 싶을 때 `== false`를 사용하면 유용합니다. 하지만 `'0' == false`는 `true`이기 때문에 숫자가 포함될 경우 사용하지 않는 것이 좋습니다.
+
+## 결론
+
+Javascript의 `==`와 `===`는 두 값이 같은지 비교하는 데 사용됩니다. `==`는 두 값이 서로 같은지 확인하지만 데이터 유형을 고려하지 않습니다. 반면 `===`은 두 값이 서로 같은지 확인하고 동일한 유형인지도 확인합니다.
+
+`==`의 문제점은 결과를 사용자가 직관적으로 다가오지 않고 일일이 기억할 수 없기 때문에 실수가 발생할 확률이 매우 높습니다. 따라서 대부분의 경우에 `===`를 사용합니다.
+
+## 참조
+
+[MDN - Equality comparisons and sameness](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)\
+[StackExchange - Does using == in JavaScript ever make sense?](https://softwareengineering.stackexchange.com/questions/268124/does-using-in-javascript-ever-make-sense)

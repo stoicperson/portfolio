@@ -1,0 +1,179 @@
+---
+title: "변수"
+---
+
+import { Callout } from "nextra-theme-docs";
+
+# 변수
+
+변수는 값을 저장하는데 사용됩니다. Javascript에서 변수를 선언할 수 있는 3가지 키워드가 있습니다. 바로 var, let와 const입니다.
+
+세 키워드는 재선언과 재할당 그리고 스코프에서의 차이가 있습니다. 이 글은 이 차이점에 대해서 알아봅니다.
+
+## var
+
+var 키워드는 함수 범위로 변수를 선언하는 데 사용됩니다.
+즉, var 변수는 함수 스코프를 가지며 선언된 함수와 함수 내 중첩 함수 내에서 엑세스할 수 있습니다.
+var 변수가 함수 외부에서 선언되면 전역 범위를 가지며 전역 객체에 추가됩니다.
+
+또한, var 키워드는 재선언과 재할당이 가능합니다.
+
+```js
+var foo;
+console.log(foo); // Output: undefined
+
+foo = 1;
+console.log(foo); // Output: 1
+
+foo = 2;
+console.log(foo); // Output: 2
+
+var foo = 3;
+console.log(foo); // Output: 3
+```
+
+## let
+
+let 키워드는 ES6(ECMAScript 2015)에서 도입되었고 블록 범위로 변수를 선언하는 데 사용됩니다.
+이는 선언된 블록(함수, 반복문) 내에서만 접근이 가능하는걸 의미합니다.
+let 변수가 블록 외부에서 선언되면 전역 범위를 가집니다.
+
+또한, let 키워드는 재선언은 불가능하지만 재할당은 가능합니다.
+
+```js
+let foo;
+console.log(foo); // Output: undefined
+
+foo = 1;
+console.log(foo); // Output: 1
+
+foo = 2;
+console.log(foo); // Output: 2
+
+let foo = 3; // SyntaxError: Identifier 'foo' has already been declared
+```
+
+## const
+
+const 키워드는 ES6(ECMDeclaration)에서 도입되었고 블록 범위로 변수를 선언하는 데 사용됩니다.
+
+또한, const 키워드는 재선언과 재할당이 불가능하고, 할당 없이 선언도 불가능합니다.
+
+```js
+const foo; // SyntaxError: Missing initializer in const declaration
+
+const foo = 1;
+console.log(foo) // Output: 1
+
+foo = 2; // TypeError: Assignment to constant variable.
+
+const foo = 3; // SyntaxError: Identifier 'foo' has already been declared
+
+```
+
+## 선언, 초기화 그리고 할당
+
+<Callout type="info">이 내용은 심화 내용입니다.</Callout>
+
+변수 생성은 선언, 초기화 그리고 할당 단계를 거칩니다. **선언**(Declaration)은 [렉시컬 환경](https://262.ecma-international.org/6.0/#sec-lexical-environments)에 변수를 생성하고, **초기화**(Initialization)는 생선된 변수에 메모리를 부여합니다. 그리고 **할당**(Assignment)은 선언된 변수에 값을 부여합니다.
+
+var, let과 const는 선언, 초기화, 할당이 다르게 작동됩니다. 먼저 var부터 살펴 보겠습니다.
+
+### var
+
+ES6 명세서에 있는 var 키워드에 대한 설명을 가져왔습니다.
+
+> A var statement declares variables that are scoped to the running execution context’s VariableEnvironment.
+> Var variables are created when their containing Lexical Environment is instantiated and are initialized to undefined when created.
+> Within the scope of any VariableEnvironment a common BindingIdentifier may appear in more than one VariableDeclaration but those declarations collective define only one variable.
+> A variable defined by a VariableDeclaration with an Initializer is assigned the value of its Initializer’s AssignmentExpression when the VariableDeclaration is executed, not when the variable is created.
+
+이를 몇 가지 사항으로 나눠서 설명해보겠습니다.
+
+- 변수 선언(`var foo`)은 변수를 포함한 "렉시컬 환경"이 인스턴스화가 되는 즉시 생성됩니다. 예를 들어 bar라는 함수 안에 foo라는 변수를 정의했다면 bar 함수가 인스턴스가 됨과 동시에 foo 변수가 생성됩니다.
+
+- 변수가 생성됨과 동시에 변수는 `undefined`으로 초기화가 됩니다. 이는 변수가 포함된 렉시컬 환경 내에서는 var문의 위치와는 상관 없이 어디서든 참조될 수 있다는 것을 의미합니다. 이를 호이스팅(hoisting)이라고 부릅니다.
+
+  ```js
+  console.log(foo); // Output: undefined
+  var foo = 1;
+  ```
+
+- 변수는 변수가 생성될 때가 아니라 변수 선언문(VariableDeclaration,`var foo = 1`)을 만났을 때 정의됩니다. 이는 변수 선언문의 위치가 지난 뒤에야 변수에 부여된 값을 사용할 수 있음을 의미합니다.
+
+  ```js
+  console.log(foo); // Output: undefined
+  var foo = 1;
+  console.log(foo); // Output: 1
+  ```
+
+- 변수 선언문은 여러 번 사용할 수 있지만 해당 변수는 한 번만 생성되며 변수의 정의는 마찬가지로 해당 선언문를 만날 때 이루어집니다. 이는 var 키워드가 재선언이 가능한 이유입니다.
+
+  ```js
+  var foo = 1;
+  console.log(foo); // Output: 1
+  var foo = 2;
+  console.log(foo); // Output: 2
+  ```
+
+- 변수는 변수 선언문(`var foo = 1`)의 이니셜라이저(Initializer, `= 1`) 여부를 따지지 않고 정의됩니다. 이니셜라이저가 있으면 `undefined` 대신 값이 부여됩니다.
+
+  ```js
+  var foo = 1;
+  console.log(foo); // Output: 1
+  var bar;
+  console.log(bar); // Output: undefined
+  ```
+
+### let과 const
+
+ES6 명세서에 있는 let과 const 키워드에 대한 설명을 가져왔습니다.
+
+> let and const declarations define variables that are scoped to the running execution context’s LexicalEnvironment.
+> The variables are created when their containing Lexical Environment is instantiated but may not be accessed in any way until the variable’s LexicalBinding is evaluated.
+> A variable defined by a LexicalBinding with an Initializer is assigned the value of its Initializer’s AssignmentExpression when the LexicalBinding is evaluated, not when the variable is created.
+> If a LexicalBinding in a let declaration does not have an Initializer the variable is assigned the value undefined when the LexicalBinding is evaluated.
+
+이를 몇 가지 사항으로 나눠서 설명해보겠습니다.
+
+- 변수 선언(`let foo`, `const bar`)은 변수를 포함한 "렉시컬 환경"이 인스턴스화가 될 때 생성되지만, 변수 선언문을 만나 평가될 때까지 어떤 방식으로도 엑세스 할 수 없습니다.
+  이는 변수 선언 위치가 지난 뒤에야 변수의 접근이 가능하다는 것을 의미합니다.
+
+  ```js
+  console.log(foo); // ReferenceError: foo is not defined
+  let foo = 1;
+
+  console.log(bar); // ReferenceError: bar is not defined
+  const bar = 2;
+  ```
+
+- let 키워드는 평가될 때 변수 선언문(`let foo = 1`)에서 이니셜라이저(`= 1`)가 없으면 undefined이 부여됩니다. 이는 let 키워드는 이니셜라이저 없이 변수를 생성할 수 있지만 const 키워드는 생성이 불가능하다는 것을 의미합니다.
+
+  ```js
+  let foo
+  console.log(foo) // Output: undefined
+
+  const bar // SyntaxError: Missing initializer in const declaration
+  ```
+
+## 요약
+
+일반적으로 변경해서 안되는 값에 const를 사용하고, 변경 가능한 값에는 let을 사용하는게 좋습니다. var는 함수 범위가 큰 코드에서 변수 동작을 추론하기 어렵게 만들 수 있으므로 적게 사용하는 편이 좋습니다.
+
+var는 함수 스코프를 가지며 재선언, 재할당이 가능합니다. let은 블록 스코프를 가지며 재선언이 불가능하고 재할당이 가능합니다. const는 블럭 스코프를 가지며 재선언과 재할당이 불가능합니다.
+
+### 요약표
+
+|       | 스코프 | 재선언 | 재할당 |
+| :---: | :----: | :----: | :----: |
+|  var  |  함수  |   ✅   |   ✅   |
+|  let  |  블럭  |   ❌   |   ✅   |
+| const |  블럭  |   ❌   |   ❌   |
+
+## 참조
+
+[MDN - var](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/var)\
+[MDN - let](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/let)\
+[MDN - const](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/const)\
+[Stackoverflow - Declaring vs Initializing a variable?](https://stackoverflow.com/questions/31714434/declaring-vs-initializing-a-variable)\
+[ECMAScript® 2015 Language Specification](https://262.ecma-international.org/6.0/#sec-variable-statement)
