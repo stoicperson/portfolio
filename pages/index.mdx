@@ -4,10 +4,15 @@ title: Park Min | Web Developer
 
 import Nav from "@/components/nav";
 import Intro from "@/components/intro";
+import ShortcutContainer from "@/components/shortcut-container";
 
 <div className="max-w-7xl mx-auto px-6">
-  <Nav />
-  <Intro>안녕하세요.&#10;저는 웹 개발자인 박민입니다.</Intro>
+  {/* <Nav /> */}
+  <div className="min-h-screen">
+    <Intro>안녕하세요&#10;저는 웹 개발자인 박민입니다</Intro>
+    <ShortcutContainer />
+    <div></div>
+  </div>
   <div>
     <div>About</div>
   </div>
