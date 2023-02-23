@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import styles from "./index.module.scss";
 
 const INITIAlS = [
   "ㄱ",
@@ -139,9 +140,10 @@ const Intro = ({ children, ...props }: IProps) => {
     };
   }, [jamos]);
   return (
-    <h1 {...props}>
-      <div className="">{context}</div>
-    </h1>
+    <div className={styles.container} {...props}>
+      <div className={styles.background}>{children}</div>
+      <h1 className={styles.typing}>{context}</h1>
+    </div>
   );
 };
 
