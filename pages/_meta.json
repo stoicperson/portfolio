@@ -6,8 +6,6 @@
     "display": "hidden",
     "theme": {
       "layout": "raw",
-      "breadcrumb": false,
-      "sidebar": false,
       "navbar": false
     }
   },
