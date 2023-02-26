@@ -1,0 +1,35 @@
+.container {
+  position: relative;
+  display: inline-block;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  font-size: min(4.375rem, 7.8vw);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.2rem;
+}
+
+.background {
+  opacity: 0;
+}
+
+.typing {
+  position: absolute;
+  inset: 0;
+  display: inline-block;
+  background-image: linear-gradient(166deg, #000, #868c91);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(.dark) {
+  .typing {
+    background-image: linear-gradient(166deg, #fff, #7c8185);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    font-size: 12vw;
+  }
+}
