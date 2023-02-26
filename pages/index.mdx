@@ -2,16 +2,20 @@
 title: Park Min | Web Developer
 ---
 
+import styles from "@/styles/index.module.scss";
 import Nav from "@/components/nav";
-import Intro from "@/components/intro";
+import Typing from "@/components/typing";
 import ShortcutContainer from "@/components/shortcut-container";
 
-<div className="max-w-7xl mx-auto px-6">
+<div>
   {/* <Nav /> */}
-  <div className="min-h-screen">
-    <Intro>안녕하세요&#10;저는 웹 개발자인 박민입니다</Intro>
+  <div className={styles.intro}>
+    <div className={styles.typing_container}>
+      <Typing>안녕하세요</Typing>
+      <Typing delay={900}>저는 웹 개발자, </Typing>
+      <Typing delay={2300}>박민입니다</Typing>
+    </div>
     <ShortcutContainer />
-    <div></div>
   </div>
   <div>
     <div>About</div>
