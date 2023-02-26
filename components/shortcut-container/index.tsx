@@ -1,14 +1,17 @@
 import styles from "./index.module.scss";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const container = {
-  hidden: { y: 20, x: -20, opacity: 0 },
-  visible: { y: 0, x: 0, opacity: 1 },
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
 };
-
 const item = {
-  hidden: { y: 20, x: -20, opacity: 0 },
-  visible: { y: 0, x: 0, opacity: 1 },
+  hidden: { scale: 0.9, opacity: 0 },
+  visible: { scale: 1, opacity: 1, transition: { duration: 0.6 } },
 };
 
 const ShortcutContainer = () => {
@@ -18,12 +21,31 @@ const ShortcutContainer = () => {
       initial="hidden"
       animate="visible"
       variants={container}
+      // whileInView={{ opacity: 1 }}
     >
-      {["ss", "cc", "aa", "bb"].map((el) => (
-        <motion.div className={styles.item} key={el} variants={item}>
-          el
-        </motion.div>
-      ))}
+      {["about", "project", "blog", "contact"].map((el) =>
+        el !== "contact" ? (
+          <Link className={styles.item} key={el} href={`/${el}`}>
+            <Shortcut text={el} />
+          </Link>
+        ) : (
+          <a className={styles.item} key={el}>
+            <Shortcut text={el} />
+          </a>
+        )
+      )}
+    </motion.div>
+  );
+};
+
+interface IPShortcut {
+  text: string;
+}
+
+const Shortcut = ({ text }: IPShortcut) => {
+  return (
+    <motion.div variants={item} onAnimationComplete={() => console.log("hi")}>
+      <h3>{text}</h3>
     </motion.div>
   );
 };
