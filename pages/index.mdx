@@ -3,30 +3,31 @@ title: Park Min | Web Developer
 ---
 
 import styles from "@/styles/index.module.scss";
-import Nav from "@/components/nav";
 import Typing from "@/components/typing";
 import ShortcutContainer from "@/components/shortcut-container";
+import Carousel from "@/components/carousel";
 
-<div>
-  {/* <Nav /> */}
-  <div className={styles.intro}>
-    <div className={styles.typing_container}>
-      <Typing>안녕하세요</Typing>
-      <Typing delay={900}>저는 웹 개발자, </Typing>
-      <Typing delay={2300}>박민입니다</Typing>
+export default function Page() {
+  return (
+    <div>
+      <div className={styles.intro}>
+        <div className={styles.typing_container}>
+          <Typing>안녕하세요</Typing>
+          <Typing delay={900}>저는 웹 개발자, </Typing>
+          <Typing delay={2300}>박민입니다</Typing>
+        </div>
+        <ShortcutContainer />
+      </div>
+      <div className={styles.about}>
+        <div>About</div>
+      </div>
+      <div className={styles.project}>
+        <Carousel baseVelocity={-5} />
+      </div>
+      <div className={styles.blog}>
+        <Carousel baseVelocity={5} />
+      </div>
+      <div className={styles.contact}>Contact</div>
     </div>
-    <ShortcutContainer />
-  </div>
-  <div>
-    <div>About</div>
-  </div>
-  <div>
-    <div>Project</div>
-  </div>
-  <div>
-    <div>Blog</div>
-  </div>
-  <div>
-    <div>Contect</div>
-  </div>
-</div>
+  );
+}
