@@ -1,0 +1,21 @@
+.container {
+  height: 50vh;
+  width: 100%;
+}
+
+.item {
+  overflow: hidden;
+  display: flex;
+  width: 200%;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  height: 30vh;
+  & > div {
+    width: 25%;
+    color: #fff;
+    display: flex;
+    background-image: linear-gradient(90deg, #000, #fff);
+    flex: 1;
+  }
+  transform: translateX();
+}
