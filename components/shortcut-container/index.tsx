@@ -1,6 +1,6 @@
 import styles from "./index.module.scss";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { easeInOut, motion } from "framer-motion";
 
 const container = {
   visible: {
@@ -11,6 +11,18 @@ const container = {
 };
 const item = {
   hidden: { scale: 0.9, opacity: 0 },
+  hover_one: {
+    scale: 0.976,
+    transition: { duration: 0.25, ease: "easeInOut" },
+  },
+  hover_two: {
+    scale: 0.95,
+    transition: { duration: 0.25, ease: "easeInOut" },
+  },
+  view: {
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeInOut" },
+  },
   visible: { scale: 1, opacity: 1, transition: { duration: 0.6 } },
 };
 
@@ -18,33 +30,38 @@ const ShortcutContainer = () => {
   return (
     <motion.div
       className={styles.container}
-      initial="hidden"
       animate="visible"
       variants={container}
-      // whileInView={{ opacity: 1 }}
     >
-      {["about", "project", "blog", "contact"].map((el) =>
-        el !== "contact" ? (
-          <Link className={styles.item} key={el} href={`/${el}`}>
-            <Shortcut text={el} />
-          </Link>
-        ) : (
-          <a className={styles.item} key={el}>
-            <Shortcut text={el} />
-          </a>
-        )
-      )}
+      <Link href="/about">
+        <Shortcut text="about" type="one" />
+      </Link>
+      <Link href="/project">
+        <Shortcut text="project" type="one" />
+      </Link>
+      <Link href="/blog">
+        <Shortcut text="blog" type="two" />
+      </Link>
+      <a>
+        <Shortcut text="contact" type="two" />
+      </a>
     </motion.div>
   );
 };
 
 interface IPShortcut {
   text: string;
+  type: string;
 }
 
-const Shortcut = ({ text }: IPShortcut) => {
+const Shortcut = ({ text, type }: IPShortcut) => {
   return (
-    <motion.div variants={item} onAnimationComplete={() => console.log("hi")}>
+    <motion.div
+      whileHover={`hover_${type}`}
+      whileInView="view"
+      className={styles.item}
+      variants={item}
+    >
       <h3>{text}</h3>
     </motion.div>
   );
