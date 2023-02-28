@@ -38,7 +38,7 @@ const Typing = ({ children, delay, ...props }: IProps) => {
   return (
     <div className={styles.container} {...props}>
       <div className={styles.background}>{children}</div>
-      <h1 className={styles.typing}>{context}</h1>
+      <div className={styles.typing}>{context}</div>
     </div>
   );
 };
