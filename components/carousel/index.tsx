@@ -17,6 +17,7 @@ const wrap = (min: number, max: number, v: number) => {
 
 interface IProps {
   baseVelocity: number;
+  itemList: [string, string, string, string];
 }
 
 const Carousel = ({ baseVelocity }: IProps) => {
@@ -27,7 +28,7 @@ const Carousel = ({ baseVelocity }: IProps) => {
     damping: 40,
     stiffness: 500,
   });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 2.5], {
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 4], {
     clamp: false,
   });
   const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
@@ -57,6 +58,7 @@ const Carousel = ({ baseVelocity }: IProps) => {
         <div>c</div>
         <div>d</div>
       </motion.div>
+      <button>See more</button>
     </div>
   );
 };
