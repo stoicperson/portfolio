@@ -48,7 +48,7 @@ const Carousel = ({ baseVelocity }: IProps) => {
   });
   return (
     <div className={styles.container}>
-      <motion.div className={styles.item} style={{ x }}>
+      <motion.div className={styles.item_wrapper} style={{ x }}>
         <div>a</div>
         <div>b</div>
         <div>c</div>
@@ -58,7 +58,6 @@ const Carousel = ({ baseVelocity }: IProps) => {
         <div>c</div>
         <div>d</div>
       </motion.div>
-      <button>See more</button>
     </div>
   );
 };
