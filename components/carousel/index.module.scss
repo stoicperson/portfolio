@@ -2,14 +2,13 @@
   width: 100%;
 }
 
-.item {
+.item_wrapper {
   overflow: hidden;
   display: flex;
   width: calc(30rem * 8);
   flex-wrap: nowrap;
   flex-direction: row;
-  padding: 2rem 0;
-
+  padding: 1rem 0;
   & > div {
     width: 30rem;
     aspect-ratio: 3 / 4;
@@ -20,5 +19,4 @@
     background-color: white;
     border-radius: 1.5em;
   }
-  transform: translateX();
 }
