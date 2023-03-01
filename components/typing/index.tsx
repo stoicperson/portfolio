@@ -30,7 +30,7 @@ const Typing = ({ children, delay, ...props }: IProps) => {
       }
       setContext(jamos[count]);
       count++;
-    }, 75);
+    }, 70);
     return () => {
       clearInterval(interval);
     };
