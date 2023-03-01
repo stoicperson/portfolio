@@ -6,6 +6,7 @@ import styles from "@/styles/index.module.scss";
 import Typing from "@/components/typing";
 import ShortcutContainer from "@/components/shortcut-container";
 import Carousel from "@/components/carousel";
+import TextCarousel from "@/components/carousel/text";
 
 export default function Page() {
   return (
@@ -21,10 +22,10 @@ export default function Page() {
       <div className={styles.about}>
         <div>About</div>
       </div>
-      <div className={styles.project}>
+      <div>
         <Carousel baseVelocity={-2.5} itemList={[""]} />
-      </div>
-      <div className={styles.blog}>
+        <TextCarousel baseVelocity={-2.5} text="Project" />
+        <TextCarousel baseVelocity={2.5} text="Blog" />
         <Carousel baseVelocity={2.5} />
       </div>
       <div className={styles.contact}>Contact</div>
