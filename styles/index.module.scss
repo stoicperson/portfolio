@@ -1,0 +1,26 @@
+.intro {
+  width: 100%;
+  min-height: 100vh;
+  & > div:last-child {
+    min-height: 60vh;
+  }
+  .typing_container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    min-height: 40vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    & > div:first-child {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .typing_container > div:nth-child(2) {
+    width: 100%;
+  }
+}

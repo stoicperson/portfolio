@@ -1,5 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
-
 const INITIAlS = [
   "ㄱ",
   "ㄲ",
@@ -75,6 +73,10 @@ const FINALS = [
   27,
 ];
 
+function makeHagul(inital: number, medial: number, final: number) {
+  return String.fromCharCode((inital * 21 + medial) * 28 + final + 0xac00);
+}
+
 function disassemble(str: string) {
   let inital,
     medial,
@@ -113,36 +115,4 @@ function disassemble(str: string) {
   return result;
 }
 
-function makeHagul(inital: number, medial: number, final: number) {
-  return String.fromCharCode((inital * 21 + medial) * 28 + final + 0xac00);
-}
-
-interface IProps {
-  children: string;
-}
-
-const Intro = ({ children, ...props }: IProps) => {
-  const jamos = useMemo(() => disassemble(children), [children]);
-  const [context, setContext] = useState("");
-  useEffect(() => {
-    let count = 0,
-      length = jamos.length;
-    let interval = setInterval(() => {
-      if (count === length - 1) {
-        clearInterval(interval);
-      }
-      setContext(jamos[count]);
-      count++;
-    }, 80);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [jamos]);
-  return (
-    <h1 {...props}>
-      <div className="">{context}</div>
-    </h1>
-  );
-};
-
-export default Intro;
+export default disassemble;

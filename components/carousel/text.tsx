@@ -1,4 +1,5 @@
-import styles from "./index.module.scss";
+import styles from "./text.module.scss";
+import { useRef } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -8,7 +9,12 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { useRef } from "react";
+import { Source_Sans_Pro } from "@next/font/google";
+
+const sourceSansPro = Source_Sans_Pro({
+  subsets: ["latin"],
+  weight: ["900"],
+});
 
 const wrap = (min: number, max: number, v: number) => {
   const rangeSize = max - min;
@@ -17,10 +23,10 @@ const wrap = (min: number, max: number, v: number) => {
 
 interface IProps {
   baseVelocity: number;
-  itemList: [string, string, string, string];
+  text: string;
 }
 
-const Carousel = ({ baseVelocity }: IProps) => {
+const TextCarousel = ({ baseVelocity, text }: IProps) => {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -46,20 +52,25 @@ const Carousel = ({ baseVelocity }: IProps) => {
 
     baseX.set(baseX.get() + moveBy);
   });
+
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${sourceSansPro.className}`}>
       <motion.div className={styles.item_wrapper} style={{ x }}>
-        <div>a</div>
-        <div>b</div>
-        <div>c</div>
-        <div>d</div>
-        <div>a</div>
-        <div>b</div>
-        <div>c</div>
-        <div>d</div>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
       </motion.div>
     </div>
   );
 };
 
-export default Carousel;
+export default TextCarousel;

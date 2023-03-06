@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+}
+
+.item_wrapper {
+  overflow: hidden;
+  display: flex;
+  width: calc(max(11rem, 25vw) * 8);
+  flex-wrap: nowrap;
+  flex-direction: row;
+  padding: 1rem 0;
+  & > div {
+    width: max(11rem, 25vw);
+    aspect-ratio: 1 / 1;
+    color: #fff;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 8%), 0 1px 2px rgb(0 0 0 / 4%),
+      0 0 0 1px rgb(0 0 0 / 3%);
+    margin-right: 0.8%;
+    background-color: white;
+    border-radius: 1.5em;
+  }
+}

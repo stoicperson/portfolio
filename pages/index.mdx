@@ -2,22 +2,33 @@
 title: Park Min | Web Developer
 ---
 
-import Nav from "@/components/nav";
-import Intro from "@/components/intro";
+import styles from "@/styles/index.module.scss";
+import Typing from "@/components/typing";
+import ShortcutContainer from "@/components/shortcut-container";
+import Carousel from "@/components/carousel";
+import TextCarousel from "@/components/carousel/text";
 
-<div className="max-w-7xl mx-auto px-6">
-  <Nav />
-  <Intro>안녕하세요.&#10;저는 웹 개발자인 박민입니다.</Intro>
-  <div>
-    <div>About</div>
-  </div>
-  <div>
-    <div>Project</div>
-  </div>
-  <div>
-    <div>Blog</div>
-  </div>
-  <div>
-    <div>Contect</div>
-  </div>
-</div>
+export default function Page() {
+  return (
+    <div>
+      <div className={styles.intro}>
+        <div className={styles.typing_container}>
+          <Typing>안녕하세요</Typing>
+          <Typing delay={900}>저는 웹 개발자, </Typing>
+          <Typing delay={2300}>박민입니다</Typing>
+        </div>
+        <ShortcutContainer />
+      </div>
+      <div className={styles.about}>
+        <div>About</div>
+      </div>
+      <div>
+        <Carousel baseVelocity={-2.5} itemList={[""]} />
+        <TextCarousel baseVelocity={-2.5} text="Project" />
+        <TextCarousel baseVelocity={2.5} text="Blog" />
+        <Carousel baseVelocity={2.5} />
+      </div>
+      <div className={styles.contact}>Contact</div>
+    </div>
+  );
+}
