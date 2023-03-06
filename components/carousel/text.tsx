@@ -37,7 +37,7 @@ const TextCarousel = ({ baseVelocity, text }: IProps) => {
   const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 4], {
     clamp: false,
   });
-  const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-12.5, 0, v)}%`);
   const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
     let moveBy = baseVelocity * (delta / 1000);
@@ -56,10 +56,6 @@ const TextCarousel = ({ baseVelocity, text }: IProps) => {
   return (
     <div className={`${styles.container} ${sourceSansPro.className}`}>
       <motion.div className={styles.item_wrapper} style={{ x }}>
-        <span>{text}</span>
-        <span>{text}</span>
-        <span>{text}</span>
-        <span>{text}</span>
         <span>{text}</span>
         <span>{text}</span>
         <span>{text}</span>
