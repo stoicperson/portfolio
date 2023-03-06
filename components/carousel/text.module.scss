@@ -1,11 +1,15 @@
+.container {
+  line-height: 0.74;
+  width: 100%;
+}
+
 .item_wrapper {
-  display: flex;
+  display: inline-flex;
   flex-wrap: nowrap;
-  flex-direction: row;
   font-size: 4rem;
   text-transform: uppercase;
-  line-height: 0.74;
   letter-spacing: -2px;
+  white-space: nowrap;
   & > span {
     display: block;
     margin-right: 2rem;
