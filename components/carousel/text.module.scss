@@ -1,16 +1,16 @@
 .container {
   line-height: 0.74;
+  letter-spacing: -2px;
   width: 100%;
 }
 
 .item_wrapper {
   display: inline-flex;
   flex-wrap: nowrap;
-  font-size: 4rem;
   text-transform: uppercase;
-  letter-spacing: -2px;
   white-space: nowrap;
   & > span {
+    font-size: min(4rem, max(5vw, 2.4rem));
     display: block;
     margin-right: 2rem;
     user-select: none;
