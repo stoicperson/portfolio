@@ -1,4 +1,6 @@
 import styles from "./index.module.scss";
+import { useRef } from "react";
+import useElementWidth from "@/hooks/useElementWidth";
 import {
   motion,
   useAnimationFrame,
@@ -8,8 +10,6 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { useRef } from "react";
-import useElementWidth from "@/hooks/useElementWidth";
 
 const wrap = (min: number, max: number, v: number) => {
   const rangeSize = max - min;
@@ -23,7 +23,6 @@ interface IProps {
 
 const Carousel = ({ baseVelocity }: IProps) => {
   const [ref, width] = useElementWidth();
-  console.log(width);
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
