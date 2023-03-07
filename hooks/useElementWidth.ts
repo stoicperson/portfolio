@@ -4,14 +4,11 @@ export default function useElementWidth<T extends HTMLElement>(): [
   (node: T | null) => void,
   number
 ] {
-  const hasWindow = typeof window !== "undefined";
-
-  function getWidth() {
-    return hasWindow ? window.innerWidth : 0;
-  }
   const [ref, setRef] = useState<T | null>(null);
-  const [width, setWidth] = useState<number>(getWidth());
-
+  const [width, setWidth] = useState<number>(100);
+  useEffect(() => {
+    setWidth(ref?.offsetWidth || 0);
+  }, [ref]);
   useEffect(() => {
     let timer: NodeJS.Timeout;
     const handleResize = () => {
@@ -23,6 +20,5 @@ export default function useElementWidth<T extends HTMLElement>(): [
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [ref?.offsetWidth]);
-
   return [setRef, width];
 }
