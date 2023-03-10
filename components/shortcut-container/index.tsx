@@ -63,6 +63,7 @@ const About = () => {};
 const Contact = () => {
   return (
     <div className={styles.contact}>
+      <div className={styles.text}>Contact</div>
       <div className={styles.airplane}>
         <svg
           width="900"
