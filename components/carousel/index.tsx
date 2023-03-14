@@ -1,4 +1,6 @@
 import styles from "./index.module.scss";
+import { useRef } from "react";
+import useElementWidth from "@/hooks/useElementWidth";
 import {
   motion,
   useAnimationFrame,
@@ -8,7 +10,6 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { useRef } from "react";
 
 const wrap = (min: number, max: number, v: number) => {
   const rangeSize = max - min;
@@ -17,10 +18,11 @@ const wrap = (min: number, max: number, v: number) => {
 
 interface IProps {
   baseVelocity: number;
-  itemList: [string, string, string, string];
+  images: string[];
 }
 
 const Carousel = ({ baseVelocity }: IProps) => {
+  const [ref, width] = useElementWidth();
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -34,7 +36,7 @@ const Carousel = ({ baseVelocity }: IProps) => {
   const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
   const directionFactor = useRef<number>(1);
   useAnimationFrame((t, delta) => {
-    let moveBy = baseVelocity * (delta / 1000);
+    let moveBy = baseVelocity * (delta / 1000) * (7680 / width);
 
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
@@ -48,7 +50,7 @@ const Carousel = ({ baseVelocity }: IProps) => {
   });
   return (
     <div className={styles.container}>
-      <motion.div className={styles.item_wrapper} style={{ x }}>
+      <motion.div className={styles.item_wrapper} ref={ref} style={{ x }}>
         <div>a</div>
         <div>b</div>
         <div>c</div>

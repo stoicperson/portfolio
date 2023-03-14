@@ -41,13 +41,27 @@
 }
 
 .contact {
-  // margin: ;
-  // overflow: hidden;
-  svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .text {
     position: absolute;
-    width: 20%;
-    height: 20%;
-    // bottom: 5%;
+  }
+  .airplane {
+    position: absolute;
+    width: 17%;
+    aspect-ratio: 1 / 1;
+    left: -17%;
+    bottom: 10%;
+    animation: 6s linear infinite;
+    animation-delay: 3s;
+    transform-origin: 50% -50%;
+    animation-name: run, rotate;
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -82,7 +96,31 @@
 }
 
 @keyframes run {
+  0% {
+    left: -17%;
+  }
+  5%,
+  30% {
+    left: calc((100% - 17%) / 2);
+  }
+  35%,
+  50% {
+    opacity: 1;
+    left: 100%;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes rotate {
+  0%,
+  5% {
+    transform: rotate(0deg);
+  }
+  30%,
+  50% {
+    transform: rotate(-360deg);
+  }
 }
